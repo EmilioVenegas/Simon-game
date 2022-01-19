@@ -10,7 +10,10 @@ body {
   color: #fef2bf;
   line-height: 3.8rem;
 }
-
+em {
+  font-weight: bolder;
+  color: red;
+}
 .container {
   display: block;
   width: 50%;

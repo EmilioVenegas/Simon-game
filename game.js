@@ -25,7 +25,7 @@ $(document).keydown(function () {
     gameStart = true;
   }
 });
-$(document).dblclick(function () {
+$("h1").click(function () {
   if (gameStart === false) {
     nextSequence();
     gameStart = true;
@@ -75,7 +75,7 @@ function checkAnswer() {
     setTimeout(function () {
       $("body").removeClass("game-over");
     }, 200);
-    $("h1").text("Game Over, Press Any Key or Double Click to Restart");
+    $("h1").html("Game Over, Press Any Key or <em>Click</em> to Restart");
     startOver();
   }
 }
