@@ -5,6 +5,8 @@ var gamePattern = [];
 var userClickedPattern = [];
 var level = 0;
 var gameStart = false;
+var highScore = [];
+
 // _______________________EFFECTS________________________________
 // .
 function playSound(name) {
@@ -25,7 +27,7 @@ $(document).keydown(function () {
     gameStart = true;
   }
 });
-$("h1").click(function () {
+$("#level-title").click(function () {
   if (gameStart === false) {
     nextSequence();
     gameStart = true;
@@ -47,7 +49,7 @@ function nextSequence() {
   animatePress(randomChosenColour);
   userClickedPattern = [];
 
-  $("h1").text("Level " + level);
+  $("#level-title").text("Level " + level);
 }
 // _________________________REGISTER_ANSWERS_________________________
 // .
@@ -65,7 +67,6 @@ function checkAnswer() {
   var lastTry = userClickedPattern[userClickedPattern.length - 1];
   var lastAnswer = gamePattern[userClickedPattern.length - 1];
   if (lastAnswer === lastTry) {
-    console.log("success");
     if (userClickedPattern.length === gamePattern.length) {
       setTimeout(nextSequence, 1000);
     }
@@ -75,13 +76,24 @@ function checkAnswer() {
     setTimeout(function () {
       $("body").removeClass("game-over");
     }, 200);
-    $("h1").html("Game Over, Press Any Key or <em>Click</em> to Restart");
+    $("#level-title").html(
+      "Game Over, Press Any Key or <em>Click here</em> to Restart"
+    );
     startOver();
   }
 }
 function startOver() {
+  highScore.push(level);
+
+  var lastScore = level;
   level = 0;
   gamePattern = [];
   gameStart = false;
   userClickedPattern = [];
+  highestScore(lastScore);
+}
+// _____________________HIGHEST SCORE_____________________
+function highestScore(lastScore) {
+  $(".highscore").text("Highest Score: " + Math.max(...highScore));
+  $(".lastscore").text("Last Score: " + lastScore);
 }
